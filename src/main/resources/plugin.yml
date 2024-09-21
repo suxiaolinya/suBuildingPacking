@@ -1,0 +1,16 @@
+name: suBuildingPacking
+version: '${project.version}'
+main: cn.suxiaolin.subuildingpacking.suBuildingPacking
+api-version: '1.13'
+authors: [suxiaolin]
+depend:
+  - suCore
+commands:
+  packing:
+    permission: subuildingpacking.command
+    permission-message: You do not have permission to use this command
+    usage: / <command>
+    description: packing command
+permissions:
+  subuildingpacking.command:
+    default: op
