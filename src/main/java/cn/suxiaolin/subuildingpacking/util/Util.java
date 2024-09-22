@@ -53,12 +53,12 @@ public class Util {
 
         Data.writeDataToFilexyz(player, xc, yc, zc);
 
-        for (int i = 0; i < zc; i++){
-            for (int j = 0; j < yc; j++){
+        for (int i = 0; i < yc; i++){
+            for (int j = 0; j < zc; j++){
                 for (int k = 0; k < xc; k++){
-                    Material material = world.getBlockAt(xmin + k, ymin + j, zmin + i).getType();
+                    Material material = world.getBlockAt(xmax - k, ymax - i, zmax - j).getType();
                     materials.add(material);
-                    Location aloc = new Location(world, xmin + k, ymin + j, zmin + i);
+                    Location aloc = new Location(world, xmax - k, ymax - i, zmax - j);
                     Block block = aloc.getBlock();
                     Bukkit.getScheduler().runTask(plugin, () -> block.setType(Material.AIR));
                 }
@@ -83,7 +83,7 @@ public class Util {
                                             .map(Material::valueOf)
                                             .collect(Collectors.toList());
 
-        int a = 0;
+        int a = materialList.size() - 1;
 
         int xc = Data.getDataConfig().getInt(ID + ".xc");
         int yc = Data.getDataConfig().getInt(ID + ".yc");
@@ -93,12 +93,12 @@ public class Util {
         int y = location.getBlockY();
         int z = location.getBlockZ();
 
-        for (int i = 0; i < zc; i++){
-            for (int j = 0; j < yc; j++){
+        for (int i = 0; i < yc; i++){
+            for (int j = 0; j < zc; j++){
                 for (int k = 0; k < xc; k++){
-                    Location aloc = new Location(location.getWorld(), x + k, y + j, z + i);
+                    Location aloc = new Location(location.getWorld(), x + k, y + i, z + j);
                     aloc.getBlock().setType(materialList.get(a));
-                    a++;
+                    a--;
                }
             }
         }
