@@ -18,8 +18,14 @@ public class PackingCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+        if (!(sender instanceof Player)) {
+            return true;
+        }
         if (sender.hasPermission("subuildingpacking.command")) {
             if (command.getName().equalsIgnoreCase("packing") && strings.length == 0) {
+                if (PackProcessHandler.getHaveProgress((Player) sender)) {
+                    return true;
+                }
                 PackProcessHandler.addProgress((Player) sender);
                 BossBarHandler.createBossBar((Player) sender);
             }
