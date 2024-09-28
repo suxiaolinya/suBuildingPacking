@@ -3,7 +3,7 @@
 可以将建筑打包 <br>
 到其他地方再放出来
 ## 指令&权限
-/packing——subuildingpacking.command
+/packing——subuildingpacking.command——默认op
 ## 用法
 首先输入/packing就会激活选区阶段<br>
 拿木棍分别选取两个对角<br>
