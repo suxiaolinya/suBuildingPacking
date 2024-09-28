@@ -17,11 +17,14 @@ public class CMD implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-        if(sender.hasPermission("subuildingpacking.command")){
-            if(command.getName().equalsIgnoreCase("packing") && strings.length == 0){
-                ProgressStart.addProgress((Player) sender);
-                Bar.createBossBar((Player) sender);
+        if(sender instanceof Player){
+            if(sender.hasPermission("subuildingpacking.command")){
+                if(command.getName().equalsIgnoreCase("packing") && strings.length == 0){
+                    ProgressStart.addProgress((Player) sender);
+                }
             }
+        }else{
+            msg.errormsg(suBuildingPacking.getpluginname(), "只有玩家才能使用此命令!");
         }
         return true;
     }

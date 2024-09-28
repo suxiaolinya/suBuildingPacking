@@ -6,7 +6,7 @@
 
   <groupId>cn.suxiaolin</groupId>
   <artifactId>suBuildingPacking</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <packaging>jar</packaging>
 
   <name>suBuildingPacking</name>
@@ -70,9 +70,9 @@
       <dependency>
           <groupId>cn.suxiaolin</groupId>
           <artifactId>suCore</artifactId>
-          <version>1.0.0</version>
+          <version>1.0.1</version>
           <scope>system</scope>
-          <systemPath>${project.basedir}/libs/suCore-1.0.0.jar</systemPath>
+          <systemPath>${project.basedir}/libs/suCore-1.0.1.jar</systemPath>
       </dependency>
   </dependencies>
 </project>

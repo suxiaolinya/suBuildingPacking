@@ -1,4 +1,4 @@
-package cn.suxiaolin.subuildingpacking.interaction;
+package cn.suxiaolin.subuildingpacking.listener;
 
 import cn.suxiaolin.subuildingpacking.data.Data;
 import cn.suxiaolin.subuildingpacking.edgeline.EdgeLine;
@@ -20,9 +20,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import static org.bukkit.Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
 
-public class Interaction implements Listener {
+public class LisInteraction implements Listener {
 
-    public Interaction(suBuildingPacking plugin){
+    public LisInteraction(suBuildingPacking plugin){
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler

@@ -4,7 +4,7 @@ import cn.suxiaolin.subuildingpacking.bossbar.Bar;
 import cn.suxiaolin.subuildingpacking.command.CMD;
 import cn.suxiaolin.subuildingpacking.data.Data;
 import cn.suxiaolin.subuildingpacking.edgeline.EdgeLine;
-import cn.suxiaolin.subuildingpacking.interaction.Interaction;
+import cn.suxiaolin.subuildingpacking.listener.LisInteraction;
 import cn.suxiaolin.subuildingpacking.listener.LisChat;
 import cn.suxiaolin.subuildingpacking.listener.LisPlace;
 import cn.suxiaolin.subuildingpacking.util.Util;
@@ -18,7 +18,7 @@ public final class suBuildingPacking extends JavaPlugin {
     @Override
     public void onEnable() {
         new EdgeLine(this);
-        new Interaction(this);
+        new LisInteraction(this);
         new LisChat(this);
         new LisPlace(this);
         new CMD(this);
