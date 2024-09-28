@@ -22,11 +22,10 @@ public class Data {
         createDataFolder();
         loadConfig();
     }
-
-    public static void writeDataToFileMaterial(Player player, String material) {
+    public static void writeDataToFileBlockData(Player player, String blockdata) {
         String id = ID.get(player);
         // 向 data.yml 文件写入内容
-        dataConfig.set(id + ".material", material);
+        dataConfig.set(id + ".blockdata", blockdata);
 
         // 保存数据到文件
         try {

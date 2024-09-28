@@ -11,11 +11,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Util {
     private static Map<Player, Location[]> locationMap = new HashMap<>();
@@ -26,7 +26,7 @@ public class Util {
     }
 
     public static void recordBuild(Player player){
-        List<Material> materials = new ArrayList<>();
+        List<BlockData> blockdatas = new ArrayList<>();
 
         Location loca = locationMap.get(player)[0];
         Location locb = locationMap.get(player)[1];
@@ -56,8 +56,8 @@ public class Util {
         for (int i = 0; i < yc; i++){
             for (int j = 0; j < zc; j++){
                 for (int k = 0; k < xc; k++){
-                    Material material = world.getBlockAt(xmax - k, ymax - i, zmax - j).getType();
-                    materials.add(material);
+                    BlockData blockdata = world.getBlockAt(xmax - k, ymax - i, zmax - j).getBlockData();
+                    blockdatas.add(blockdata);
                     Location aloc = new Location(world, xmax - k, ymax - i, zmax - j);
                     Block block = aloc.getBlock();
                     Bukkit.getScheduler().runTask(plugin, () -> block.setType(Material.AIR));
@@ -65,25 +65,25 @@ public class Util {
             }
         }
 
-        Data.writeDataToFileMaterial(player, materials.toString());
+        Data.writeDataToFileBlockData(player, blockdatas.toString());
         ItemBuild.createItemToPlayer(player);
         msg.pcommonmsg(suBuildingPacking.getpluginname(), player.getDisplayName(), "建筑打包完成！");
 
         Data.removeID(player);
         EdgeLine.removeLine(player);
         ProgressStart.removeProgress(player);
-
     }
 
     public static void placeBuild(String ID, Location location){
-        String var1 = Data.getDataConfig().getString(ID + ".material");
-        String[] materialStrings = var1.replaceAll("[\\[\\]]", "").split(",\\s*");
-        // 将字符串转换为 Material 枚举
-        List<Material> materialList = Arrays.stream(materialStrings)
-                                            .map(Material::valueOf)
-                                            .collect(Collectors.toList());
+        String var1 = Data.getDataConfig().getString(ID + ".blockdata");
+        String[] blockdataStrings = var1.substring(1, var1.length() - 1).split(", ");
+        List<BlockData> BlockDataList = new ArrayList<>();
+        for (String blockDataString : blockdataStrings) {
+            String validBlockData = blockDataString.substring(blockDataString.indexOf("{") + 1, blockDataString.length() - 1);
+            BlockDataList.add(Bukkit.createBlockData(validBlockData));
+        }
 
-        int a = materialList.size() - 1;
+        int a = BlockDataList.size() - 1;
 
         int xc = Data.getDataConfig().getInt(ID + ".xc");
         int yc = Data.getDataConfig().getInt(ID + ".yc");
@@ -97,7 +97,7 @@ public class Util {
             for (int j = 0; j < zc; j++){
                 for (int k = 0; k < xc; k++){
                     Location aloc = new Location(location.getWorld(), x + k, y + i, z + j);
-                    aloc.getBlock().setType(materialList.get(a));
+                    aloc.getBlock().setBlockData(BlockDataList.get(a));
                     a--;
                }
             }
